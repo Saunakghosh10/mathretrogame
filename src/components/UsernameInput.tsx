@@ -1,11 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 
-export default function UsernameInput({ onSubmit }) {
+interface UsernameInputProps {
+  onSubmit: (username: string) => void;
+}
+
+export default function UsernameInput({ onSubmit }: UsernameInputProps) {
   const [input, setInput] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.trim()) {
       onSubmit(input.trim());
