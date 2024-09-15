@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faClock, faCheck, faTimes, faRedo, faBolt } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faClock, faCheck, faTimes, faRedo, faBolt, faHome } from '@fortawesome/free-solid-svg-icons';
 
 interface GameBoardProps {
   username: string;
   mode: 'easy' | 'moderate' | 'hard' | 'rapid';
+  onReturnHome: () => void;  // Add this new prop
 }
 
-export default function GameBoard({ username, mode }: GameBoardProps) {
+export default function GameBoard({ username, mode, onReturnHome }: GameBoardProps) {
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(mode === 'rapid' ? 30 : 60);
   const [question, setQuestion] = useState('');
@@ -137,10 +138,16 @@ export default function GameBoard({ username, mode }: GameBoardProps) {
         </div>
       )}
       {gameOver && (
-        <button onClick={restartGame} className="bg-yellow-400 text-black p-2 hover:bg-yellow-300 text-xl">
-          <FontAwesomeIcon icon={faRedo} className="mr-2" />
-          Play Again
-        </button>
+        <div>
+          <button onClick={restartGame} className="bg-yellow-400 text-black p-2 hover:bg-yellow-300 text-xl mr-2">
+            <FontAwesomeIcon icon={faRedo} className="mr-2" />
+            Play Again
+          </button>
+          <button onClick={onReturnHome} className="bg-blue-400 text-black p-2 hover:bg-blue-300 text-xl ml-2">
+            <FontAwesomeIcon icon={faHome} className="mr-2" />
+            Home
+          </button>
+        </div>
       )}
     </div>
   );
